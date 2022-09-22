@@ -14,6 +14,20 @@ export class Phonebook extends Component {
     contact: [],
     filter: '',
   };
+  componentDidMount() {
+    this.setState({
+      contact: JSON.parse(localStorage.getItem('contact')) || [],
+    });
+  }
+
+  componentDidUpdate(prevProps, { contact }) {
+    const pars = JSON.parse(localStorage.getItem('contact')) || [];
+    if (!contact.map(item => item.name).includes(pars.map(item => item.name))) {
+      localStorage.setItem('contact', JSON.stringify(this.state.contact));
+    }
+  }
+
+  componentWillUnmount() {}
 
   hendleSubmit = ({ name, number }) => {
     const { contact } = this.state;
