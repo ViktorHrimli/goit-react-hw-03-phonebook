@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import 'yup-phone';
 import { Formik, ErrorMessage } from 'formik';
 //
 import { Box } from 'commonStyle/Common.styled';
 import { FormContact, FormLabel, Input, FormButton, Eror } from './Form.styled';
 
-const validationSchema = Yup.object().shape({
+const validationSchema = Yup.object({
   name: Yup.string().required(),
-  number: Yup.string().min(5).max(30).required(),
+  number: Yup.string().phone('ua').required(),
 });
+
 const initialValue = { name: '', number: '' };
 
 export const Formes = ({ onSubmit }) => {
